@@ -149,12 +149,13 @@ app.put("/api/users/update", (req, res) => {
 })
 
 /**
- * @path {PATCH} http://localhost:3000/api/user/update/:user_id/:name
+ * @path {PATCH} http://localhost:3000/api/user/update/:user_id
  * @description 단일 데이터를 수정할 때 사용되는 Method
  */
-app.patch("/api/user/update/:user_id/:name", (req, res) => {
+app.patch("/api/user/update/:user_id", (req, res) => {
 
-    const { user_id, name} = req.params
+    const { user_id} = req.params
+    const { name } = req.body
 
     //map 함수는 자바스크립트에서 배열 함수이다. 요소를 일괄적으로 변경할 때 사용됩니다.
     const user = users.map(data => {
@@ -177,10 +178,10 @@ app.patch("/api/user/update/:user_id/:name", (req, res) => {
  */
 app.delete("/api/user/delete", (req, res) => {
 
-    const user_id = req.params.user_id
+    const user_id = req.query.user_id
 
     //filter라는 함수는 자바스크립트에서 배열 함수이다. 필터링을 할때 많이 사용된다 필터링한 데이터를 새로운 배열로 반환한다.
-    const user = users.filter(data => data.id !== user_id );
+    const user = users.filter(data => data.id != user_id );
 
     res.json({ok: true, users: user})
 })
